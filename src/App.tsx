@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/layout/DashboardLayout";
@@ -29,38 +29,19 @@ const App = () => (
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             
-            {/* Protected Routes with DashboardLayout */}
-            <Route path="/dashboard" element={
+            {/* Protected Routes with shared DashboardLayout */}
+            <Route path="/" element={
               <ProtectedRoute>
                 <DashboardLayout>
-                  <Dashboard />
+                  <Outlet />
                 </DashboardLayout>
               </ProtectedRoute>
-            } />
-            
-            <Route path="/associations" element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <AssociationList />
-                </DashboardLayout>
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/associations/add" element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <AddAssociation />
-                </DashboardLayout>
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/search" element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <Search />
-                </DashboardLayout>
-              </ProtectedRoute>
-            } />
+            }>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/associations" element={<AssociationList />} />
+              <Route path="/associations/add" element={<AddAssociation />} />
+              <Route path="/search" element={<Search />} />
+            </Route>
             
             {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFound />} />
