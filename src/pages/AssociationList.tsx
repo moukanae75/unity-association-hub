@@ -60,7 +60,7 @@ const AssociationList = () => {
   };
 
   return (
-    <DashboardLayout>
+   
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">Associations Directory</h1>
@@ -188,7 +188,7 @@ const AssociationList = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </DashboardLayout>
+
   );
 };
 

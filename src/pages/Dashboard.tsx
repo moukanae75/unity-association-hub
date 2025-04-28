@@ -22,7 +22,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <DashboardLayout>
+
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Welcome back, {user?.username}!</h1>
@@ -161,7 +161,7 @@ const Dashboard = () => {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+
   );
 };
 

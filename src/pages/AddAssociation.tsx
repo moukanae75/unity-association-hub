@@ -412,7 +412,7 @@ const AddAssociation = () => {
   };
 
   return (
-    <DashboardLayout>
+    
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Add New Association</h1>
         
@@ -444,7 +444,7 @@ const AddAssociation = () => {
           </CardFooter>
         </Card>
       </div>
-    </DashboardLayout>
+
   );
 };
 
