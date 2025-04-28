@@ -30,7 +30,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             
             {/* Protected Routes with shared DashboardLayout */}
-            <Route path="/" element={
+            <Route element={
               <ProtectedRoute>
                 <DashboardLayout>
                   <Outlet />
