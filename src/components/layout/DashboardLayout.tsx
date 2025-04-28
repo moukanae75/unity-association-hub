@@ -8,12 +8,6 @@ import {
   User,
   Search,
   LogOut,
-  ChevronRight,
-  ChevronLeft,
-  Home,
-  Plus,
-  FileText,
-  Settings,
   Menu,
   Bell
 } from 'lucide-react';
@@ -24,21 +18,15 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const { user, logout } = useAuth();
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   const navigationItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Add Association', href: '/associations/add', icon: Plus },
-    { name: 'Associations', href: '/associations', icon: FileText },
-    { name: 'Search', href: '/search', icon: Search },
-    { name: 'Settings', href: '/settings', icon: Settings },
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Add Association', href: '/associations/add' },
+    { name: 'Associations', href: '/associations' },
+    { name: 'Search', href: '/search' },
   ];
-
-  const toggleSidebar = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
-  };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -118,7 +106,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <div className="p-4 border-b border-gray-200 flex justify-between items-center">
             <span className="font-bold text-lg">Menu</span>
             <Button variant="ghost" size="icon" onClick={toggleMobileMenu}>
-              <ChevronLeft size={20} />
+              <span className="sr-only">Close</span>
+              ✕
             </Button>
           </div>
           <nav className="p-4">
@@ -135,7 +124,6 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                     )}
                     onClick={toggleMobileMenu}
                   >
-                    <item.icon className="mr-3" size={18} />
                     {item.name}
                   </Link>
                 </li>
@@ -145,58 +133,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         </div>
       </div>
       
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar (hidden on mobile, replaced by mobile menu) */}
-        <div 
-          className={cn(
-            "bg-sidebar text-sidebar-foreground hidden md:block transition-all duration-300 ease-in-out",
-            sidebarCollapsed ? "w-20" : "w-64"
-          )}
-        >
-          {/* Logo and Brand */}
-          <div className="flex items-center justify-between h-16 px-4">
-            {!sidebarCollapsed && (
-              <span className="text-xl font-bold">Menu</span>
-            )}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleSidebar} 
-              className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-            >
-              {sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-            </Button>
-          </div>
-          
-          {/* Navigation */}
-          <nav className="mt-6 px-2">
-            <ul className="space-y-1">
-              {navigationItems.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      "flex items-center rounded-md px-3 py-2 group transition-colors",
-                      location.pathname === item.href 
-                        ? "bg-sidebar-primary text-sidebar-primary-foreground" 
-                        : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                    )}
-                  >
-                    <item.icon className={cn("flex-shrink-0", sidebarCollapsed ? "mx-auto" : "mr-3")} size={20} />
-                    {!sidebarCollapsed && <span>{item.name}</span>}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-        
-        {/* Main Content */}
-        <div className="flex-1 overflow-auto">
-          <main className="p-6">
-            {children}
-          </main>
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        <main className="p-6">
+          {children}
+        </main>
       </div>
     </div>
   );
